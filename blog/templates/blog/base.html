@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Blog</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'blog/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'blog/css/blog-home.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" style='border:1px solid #00dba0; padding: 4px; border-radius: 4px; color: #00dba0;' href="{% url 'blog-home' %}">BLOGPOST</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto" style='border:1px solid #00dba0; padding: 4px; border-radius: 4px; color: #00dba0;'>
+        {% if user.is_authenticated %}
+        <form class="form-inline" action="{% url 'search_results' %}"  method='get'>
+        <input class="form-control mr-sm-2" name="q" type="search" placeholder="search...." aria-label="Search">
+        <button class="btn btn-outline-success my-sm-0" type="submit">Search</button>
+        </form>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'create-entry' %}"><h5>Post</h5></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'profile' %}"><h5>Profile</h5></a>
+          </li>   
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}"><h5>Register</h5></a>
+          </li>
+          {% endif %}
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}"><h5>Log out</h5></a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}"><h5>Login</h5></a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+  <div class="row">
+{% block content %} {% endblock %}
+
+       <!-- Sidebar Widgets Column -->
+        <!-- Side Widget -->
+
+    </div>
+   
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright  &copy; manucho's Blogpost 2020</p>
+  </div>
+    <!-- /.container -->
+</footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'blog/vendor/jquery/jquery.min.js'%}"></script>
+  <script src="{% static 'blog/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+
+</html>

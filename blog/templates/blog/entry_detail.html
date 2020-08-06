@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %} 
+ {% block content %}
+
+      <div class="col-md-8 my-4 ">
+        <div class="card mb-4 mt-4">
+          <div class="card-body">
+            <h3 class="card-title">{{ object.entry_title.upper }}</h3>
+            <p class="card-text">{{ object.entry_text|linebreaks }}</p>
+          </div>
+          <div class="card-footer text-muted">
+            {{ object.entry_date }}
+            <span class= "text-info mr-2">{{ object.entry_author }}</span>
+            {%  if object.entry_author == user %}
+              <a class="btn btn-outline-secondary" href="{% url 'post-update' object.id %}">Update</a>
+              <a class="btn btn-outline-danger" href="{% url 'post-delete' object.id %}">Delete</a>
+            {% endif %}
+          </div>
+        </div>
+         <a class="btn btn-info" href="{% url 'blog-home' %}"><h3>Back Home</h3></a>
+        <!-- Pagination -->
+      </div>
+ {% endblock %}

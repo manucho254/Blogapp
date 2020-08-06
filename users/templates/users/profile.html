@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %} 
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class='container'>
+    <div class="my-4">
+            <h4 class='navbar-brand' style='border:6px solid grey; padding: 6px; border-radius: 6px; color: black;'>User Profile</h4>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="col-md-8 text-xs-center">
+                          <img src="{{ user.profile.image.url }}" class="rounded float-right img-fluid img-thumbnail" alt="avatar">
+                        </div>
+                    <div class='container'>
+                        <div class=" text-xs-center my-4">  
+                          <h><h5>Username:</h5><label>{{ user.username }}</label></h>
+                          <h><h5>Email:</h5><label>{{ user.email }}</label></h>
+                        </div>
+                    </div>
+                </div>
+          </div>
+    </div>
+</div>
+<div class='container'>
+        <div class='media'>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Update</legend>
+                   {{ u_form|crispy }}
+                {% if user.profile %}
+                    {{ p_form|crispy }}
+                {% endif %}
+            </fieldset>
+            <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Update</button>
+    </div>
+             </form>
+    </div>
+</div>
+{% endblock %}
