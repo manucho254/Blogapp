@@ -1,23 +1,54 @@
  {% extends 'blog/base.html' %} 
  {% block content %}
 
-      <div class="col-md-8 my-4">
+<div class="container">
+  <div class="card form-row my-4 mb-8 ">
+       <div class="card-body">
+              <form class="form-inline md-form mr-auto" action="{% url 'searchblog' %}" method="GET" value="{{request.GET.q}}">
+                <input class="form-control col-md-4 mr-sm-2" type="text" name="q" value="{{request.GET.q}}" placeholder="Search...."/>
+                  <input class="btn btn-outline-success my-sm-0" type="submit" name="submit" value="Search"/>
+             </form>
+        </div>
+  </div>
+</div>
+<div class="container">
+     <div class="card-body">
+             {% if submitbutton == 'Search' and request.GET.q != '' %}
+             {% if results %}
+             <h1>Results for <b>{{ request.GET.q }}</b></h1>
+             <br/><br/>
+             {% for result in results %}
+             <h3 class="card-title">{{result.entry_title}}</h3>
+             
+             <br/>
+             <p class="card-text">{{result.entry_text}}</p>
+             
+             <br/>
+             {% endfor %}
+             {% else %}
+             No search results found
+             <a class="btn btn-info" href="{% url 'blog-home' %}"><h3>Back Home</h3></a>
+             {% endif %}
+             {% endif %}
+      </div>
+</div>
+   <div class="col-md-8 ">
       {% for post in my_blogs %}
         <!-- Blog Post -->
-        <div class="card mb-4 mt-4">
-         <img class="card-img-top" src="{{ post.entry_pic.url }}" alt="Card image cap">
-          <div class="card-body">
-            <h3 class="card-title">{{ post.entry_title.upper }}</h3>
-            <p class="card-text">{{ post.entry_text|truncatechars:100 }}</p>
-            <a href="{% url 'post-detail' post.pk %}" class="btn btn-primary btn-sm">Read More &rarr;</a>
+        <div class="card mb-4 mt-4" style="border:6px solid grey; padding: 6px; border-radius: 6px; color: black;">
+           <img class="card-img-top" src="{{ post.entry_pic.url }}" alt="Card image cap">
+             <div class="card-body">
+               <h3 class="card-title">{{ post.entry_title.upper }}</h3>
+                <p class="card-text">{{ post.entry_text|truncatechars:100 }}</p>
+              <a href="{% url 'post-detail' post.pk %}" class="btn btn-primary btn-sm">Read More &rarr;</a>
           </div>
-          <div class="card-footer text-muted">
+        <div class="card-footer text-muted">
             {{ post.entry_date }}
             <span class= "text-info mr-2">{{ post.entry_author }}</span>
           </div>
-        </div>
+    </div>
         {% endfor %}
-        
+       
         {% if is_paginated %}
         <!-- Pagination -->
         <ul class="pagination justify-content-center mb-4">

@@ -1,4 +1,5 @@
 {% load static %}
+{% load blog_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,10 +31,6 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto" style='border:1px solid #00dba0; padding: 4px; border-radius: 4px; color: #00dba0;'>
         {% if user.is_authenticated %}
-        <form class="form-inline" action="{% url 'search_results' %}"  method='get'>
-        <input class="form-control mr-sm-2" name="q" type="search" placeholder="search...." aria-label="Search">
-        <button class="btn btn-outline-success my-sm-0" type="submit">Search</button>
-        </form>
           <li class="nav-item ">
             <a class="nav-link" href="{% url 'create-entry' %}"><h5>Post</h5></a>
           </li>
@@ -65,7 +62,16 @@
   <div class="row">
 {% block content %} {% endblock %}
 
-       <!-- Sidebar Widgets Column -->
+      <!-- Sidebar Widgets Column -->
+<div class="col-md-4">
+    <div class="card my-4 mb-3">
+          <h5 class="card-header text-centre">Blogs</h5>
+          <div class="card-body">
+            <p>number of blogs </p>
+            <h3>Latest posts</h3>
+          </div>
+    </div>
+</div>
         <!-- Side Widget -->
 
     </div>

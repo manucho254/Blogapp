@@ -56,13 +56,22 @@ class DeleteEntryVeiw(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False 
 
-class SearchResultsView(ListView):
-    model = Blog
-    template_name = 'blog/base.html'
+def searchblog(request):
+    if request.method == "GET":
+        query = request.GET.get('q')
 
-    def get_queryset(self): # new
-        query = self.request.GET.get('q')   
-        object_list = Blog.objects.filter(
-            Q(entry_title__icontains=query) | Q(entry_text__icontains=query)
-        )
-        return object_list
+        submitbutton = request.GET.get('submit')
+
+        if query is not None:
+            lookups= Q(entry_title__icontains=query) | Q(entry_text__icontains=query) | Q(entry_pic__icontains=query)
+
+            results = Blog.objects.filter(lookups).distinct()
+
+            context={'results':results,
+                  'submitbutton':submitbutton
+                  }
+            return render(request,'blog/index.html', context)
+        else:
+            return render(request, 'blog/index.html')
+    else:
+            return render(request, 'blog/index.html')
