@@ -4,12 +4,10 @@ from ..models import Blog
 register = template.Library()
 
 @register.simple_tag
-def total_posts():
-    model = Blog
-    return (object.entry_title())
+def total_posts(count):
+    return Blog.entry_title.get()[:count]
 
 @register.inclusion_tag('myapp/blog/latest_posts.html')
-def show_latest_posts(count=8):
-    latest = Blog.objects.all()
-    latest_posts = latest.entry_pic.order_by('-entry_date')[:count]
+def show_latest_posts(count=4):
+    latest_posts = Blog.entry_title.get(order_by('-entry_date'))[:count]
     return {'latest_posts': latest_posts}
