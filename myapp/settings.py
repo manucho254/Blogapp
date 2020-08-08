@@ -5,7 +5,6 @@ import django_heroku
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '6kn6v303)t46x8go%68_^!tm+(66y)c$-!a^*q6)gl35*r4^y*'
 
@@ -122,6 +121,7 @@ LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'media/')
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = ''
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
