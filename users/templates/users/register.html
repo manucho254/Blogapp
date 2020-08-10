@@ -2,8 +2,8 @@
 {% load crispy_forms_tags %}
  {% block content %}
 
-      <div class="col-md-8">
-        <div class="card mb-4 mt-4">
+      <div class="col-md-8 mx-auto text-centre my-4">
+        <div class="card border-secondary mb-3 " style="max-width: 29rem;">
           <div class="card-header">
           Create an Account
           </div>
@@ -11,7 +11,9 @@
           <form method = 'POST'>
             {% csrf_token %}
              {{form|crispy}}
-             <button type="sumit" class="btn-primary">Create Account</button>
+             <div class"text-centre">
+             <button type="sumit" class="btn-success" style="border-radius: 6px;">Create Account</button>
+             </div>
             </form>
           </div>
         </div>

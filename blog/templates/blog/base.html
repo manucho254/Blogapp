@@ -16,6 +16,7 @@
   <link href="{% static 'blog/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="{% static 'blog/css/blog-home.css' %}" rel="stylesheet">
+  <link href="{% static 'blog/css/line.css' %}" rel="stylesheet">
 
 </head>
 
@@ -29,26 +30,26 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto" style='border:1px solid #00dba0; padding: 4px; border-radius: 4px; color: #00dba0;'>
+        <ul class="navbar-nav ml-auto" style="border:1px solid #00dba0; padding: 4px; border-radius: 4px; color: #00dba0;">
         {% if user.is_authenticated %}
           <li class="nav-item ">
-            <a class="nav-link" href="{% url 'create-entry' %}"><h5>Post</h5></a>
+            <a class="nav-link" style="color: #00dba0;" href="{% url 'create-entry' %}"><h5>Post</h5></a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="{% url 'profile' %}"><h5>Profile</h5></a>
+            <a class="nav-link" style="color: #00dba0;" href="{% url 'profile' %}"><h5>Profile</h5></a>
           </li>   
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}"><h5>Register</h5></a>
+            <a class="nav-link" style="color: #00dba0;" href="{% url 'register' %}"><h5>SIGN UP</h5></a>
           </li>
           {% endif %}
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}"><h5>Log out</h5></a>
+            <a class="nav-link" style="color: #00dba0;" href="{% url 'logout' %}"><h5>Logout</h5></a>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}"><h5>Login</h5></a>
+            <a class="nav-link" style="color: #00dba0;" href="{% url 'login' %}"><h5>LOGIN</h5></a>
           </li>
           {% endif %}
         </ul>
@@ -62,17 +63,34 @@
   <div class="row">
 {% block content %} {% endblock %}
 
-      <!-- Sidebar Widgets Column -->
-<div class="col-md-4">
-    <div class="card my-4 mb-3">
-          <h5 class="card-header text-centre">Blogs</h5>
+ 
+<!-- Sidebar Widgets Column -->
+{% block side %}  
+{% if user.is_authenticated %}
+
+<div class="col-md-4 my-4">
+  <!-- Side Widget -->
+        <div class="card text-white bg-secondary mb-3 my-4">
+          <h5 class="card-header" style="color: #00dba0;">USERINFO</h5>
           <div class="card-body">
-            <p>number = {{ total_posts }} </p>
-            <h3>{{ show_latest_posts }}</h3>
-          </div>
-    </div>
-</div>
-        <!-- Side Widget -->
+              <div class="col-md-8 text-center">
+                  <img src="{{ user.profile.image.url }}" class="rounded-circle float-right img-fluid img-thumbnail" alt="avatar">
+              </div>
+            <ul class="list-styled mb-0 my-4">
+                <li>
+                    <p> <strong>Username:</strong> {{ user.username }} </p>
+                </li>
+                <li>
+                    <p> <strong>Email:</strong> {{ user.email }}</p>
+                </li>
+            </ul> 
+          </div>   
+      </div>
+  </div>
+ </div> 
+{% endif %}
+{% endblock side %}  
+<!-- Side Widget -->
 
     </div>
    

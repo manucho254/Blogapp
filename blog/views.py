@@ -63,7 +63,7 @@ def searchblog(request):
         submitbutton = request.GET.get('submit')
 
         if query is not None:
-            lookups= Q(entry_title__icontains=query) | Q(entry_text__icontains=query) | Q(entry_pic__icontains=query)
+            lookups= Q(entry_title__icontains=query) | Q(entry_text__icontains=query)
 
             results = Blog.objects.filter(lookups).distinct()
 
